@@ -1,6 +1,7 @@
 package utilities;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.openqa.selenium.*;
@@ -11,8 +12,12 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public abstract class TestBase {
@@ -41,14 +46,14 @@ public abstract class TestBase {
     }
 
     //    REUSABLE METHOD: Dropdown icin tekrar tekrar kullanabilecegimiz bir method olusturalim.
-    public void selectFromDropdown(WebElement dropdown, String secenek){
+    public void selectFromDropdown(WebElement dropdown, String secenek) {
 //        selectFromDropdown(driver.findElement(By.xpath("//select[@id='year']")), "2005"); -> year dan 2005
 //        selectFromDropdown(driver.findElement(By.xpath("//select[@id='month']")), "January"); -> month January
 //        selectFromDropdown(driver.findElement(By.id("day")), "12"); -> Day 12
 //        Gonderilen dropdown elemention tum optionslari alinir
         List<WebElement> options = dropdown.findElements(By.tagName("option"));//Tum option tagli elementleri aliyorum
-        for (WebElement eachOption : options){
-            if (eachOption.getText().equals(secenek)){
+        for (WebElement eachOption : options) {
+            if (eachOption.getText().equals(secenek)) {
                 eachOption.click();
                 break;
             }
@@ -202,6 +207,31 @@ public abstract class TestBase {
                 .ignoring(NoSuchElementException.class);
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
         return element;
+    }
+
+    //   SCREENSHOTS
+    public void takeScreenShotOfPage() throws IOException {
+//        1. Take screenshot
+        File image = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+//       2. Save screenshot
+//        getting the current time as string to use in teh screenshot name, previous screenshots will be kept
+        String currentTime = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
+//        Path of screenshot save folder               folder / folder    /file name
+        String path = System.getProperty("user.dir") + "/test-output/Screenshots/" + currentTime + "image.png";
+        FileUtils.copyFile(image, new File(path));
+    }
+
+    //    SCREENSHOT
+//    @params: WebElement
+//
+    public void takeScreenshotOfElement(WebElement element) throws IOException {
+//        1. take screenshot
+        File image = element.getScreenshotAs(OutputType.FILE);
+//        2. save screenshot
+//        path
+        String currentTime = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
+        String path = System.getProperty("user.dir") + "/test-output/Screenshots/" + currentTime + "image.png";
+        FileUtils.copyFile(image, new File(path));
     }
 
 }
