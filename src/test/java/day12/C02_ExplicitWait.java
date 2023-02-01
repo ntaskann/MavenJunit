@@ -10,7 +10,7 @@ import utilities.TestBase;
 
 import java.time.Duration;
 
-public class C02_ExplicitWait extends TestBase {
+public class C02_ExplicitWait extends TestBase  {
 
 
     //https://the-internet.herokuapp.com/dynamic_loading/1
@@ -18,7 +18,9 @@ public class C02_ExplicitWait extends TestBase {
     //Hello World! Yazının sitede oldugunu test et
 
     @Test
-    public void explicitWaitTest() {
+    public void explicitWaitTest()  {
+
+
         //https://the-internet.herokuapp.com/dynamic_loading/1
         driver.get("https://the-internet.herokuapp.com/dynamic_loading/1");
 
@@ -36,6 +38,6 @@ public class C02_ExplicitWait extends TestBase {
         WebElement helloWorldElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='finish']//h4")));
         String helloWorldText = helloWorldElement.getText();
         Assert.assertEquals("Hello World!", helloWorldText);
-
     }
+
 }

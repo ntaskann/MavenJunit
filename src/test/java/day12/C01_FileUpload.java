@@ -29,9 +29,9 @@ public class C01_FileUpload extends TestBase {
         chooseFileButton.sendKeys(dosyaYolu);
         waitFor(4);
 
-        /*
-            chooseFileButton una yuklemek istedigim dosyanın path ini gondererek dosyayı sectim.
-         */
+
+        //chooseFileButton una yuklemek istedigim dosyanın path ini gondererek dosyayı sectim.
+
 
         //Upload butonuna basalim.
         driver.findElement(By.id("file-submit")).click();

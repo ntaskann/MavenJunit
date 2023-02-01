@@ -13,18 +13,20 @@ public class C03_FileExist {
     public void isExistTest() {
 
         String userDIR = System.getProperty("user.dir");
-        System.out.println(userDIR);
+        System.out.println(userDIR);//C:\IntelliJ\Maven_Junit
 
         String userHome = System.getProperty("user.home");
-        System.out.println(userHome);
+        System.out.println(userHome);//C:\Users\Asus
 
         //logo.jpeg indir masaüstüne kaydet
 
         String dosyaYolu = userHome + "\\Desktop\\logo.jpeg";
-        System.out.println("dosyaYolu = " + dosyaYolu);
+        System.out.println("dosyaYolu = " + dosyaYolu);//C:\Users\Asus\Desktop\logo.jpeg
 
         boolean isExist = Files.exists(Paths.get(dosyaYolu));//dosya var ise true yoksa false verir.
         Assert.assertTrue(isExist);
+
+
 
 
     }
